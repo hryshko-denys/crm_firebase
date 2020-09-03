@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import auth from './auth';
+import info from './info';
 
 Vue.use(Vuex);
 
@@ -20,8 +21,14 @@ export default new Vuex.Store({
     error: (state) => state.error,
   },
   actions: {
+    async fetchCurrency() {
+      const key = process.env.VUE_APP_FIXER;
+      const result = fetch(`http://data.fixer.io/api/latest?access_key=${key}&symbols=USD,EUR,RUB`).then((respond) => respond.json());
+      return result;
+    },
   },
   modules: {
     auth,
+    info,
   },
 });
