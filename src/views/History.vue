@@ -15,18 +15,30 @@
     </p>
 
     <section v-else>
-      <HistoryTalbe :records="records" />
+      <HistoryTalbe :records="items" />
+
+      <Paginate
+        v-model="page"
+        :page-count="pageCount"
+        :click-handler="PageChangeHandler"
+        :prev-text="'Назад'"
+        :next-text="'Вперед'"
+        :container-class="'pagination'"
+        :page-class="'waves-effect'"
+      />
     </section>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
+import paginationMixin from '@/mixins/pagination.mixin'
 import HistoryTalbe from '@/components/app/HistoryTalbe.vue';
 import Loader from '@/components/app/Loader.vue';
 
 export default {
   name: 'history',
+  mixins: [paginationMixin],
   components: {
     HistoryTalbe,
     Loader,
@@ -34,20 +46,18 @@ export default {
   data: () => ({
     loading: true,
     records: [],
-    categories: [],
   }),
   async mounted() {
-    const records = await this.$store.dispatch('fetchRecords');
+    this.records = await this.$store.dispatch('fetchRecords');
     const categories = await this.$store.dispatch('fetchCategories');
-    this.categories = categories;
-    this.records = records.map(record => {
+    this.setupPagination(this.records.map(record => {
       return {
         ...record,
-        categoryName: this.categories.find((c) => c.id === record.categoryId).title,
+        categoryName: categories.find((c) => c.id === record.categoryId).title,
         typeClass: record.type === 'income' ? 'green' : 'red',
         typeText: record.type === 'income' ? 'Доход' : 'Расход',
       };
-    });
+    }));
 
     this.loading = false;
   },
