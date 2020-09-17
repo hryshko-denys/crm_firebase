@@ -2,6 +2,7 @@ import Vue from 'vue';
 import dateFilter from '@/filters/dates.filter';
 import Paginate from 'vuejs-paginate';
 import currencyFilter from '@/filters/currency.filter';
+import localizeFilter from '@/filters/localize.filter';
 import tooltipDirective from '@/directives/tooltip.directive';
 import messagePlugin from '@/utils/message.plugin';
 import Loader from '@/components/app/Loader.vue';
@@ -19,6 +20,7 @@ Vue.config.productionTip = false;
 
 Vue.filter('date', dateFilter);
 Vue.filter('currency', currencyFilter);
+Vue.filter('localize', localizeFilter);
 Vue.directive('tooltip', tooltipDirective);
 Vue.use(Vuelidate);
 Vue.use(messagePlugin);
