@@ -1,7 +1,7 @@
 <template>
   <form class="card auth-card" @submit.prevent="submitHandler">
     <div class="card-content">
-      <span class="card-title">Домашняя бухгалтерия</span>
+      <span class="card-title">{{'Home_budget' | localize}}</span>
       <div class="input-field">
         <input
             id="email"
@@ -15,7 +15,7 @@
           v-if="$v.email.$dirty && !$v.email.required"
           class="helper-text invalid"
         >
-          Email не должен быть пустым
+          {{'Home_emailEmpty' | localize}}
         </small>
         <small
           v-else-if="$v.email.$dirty && !$v.email.email"

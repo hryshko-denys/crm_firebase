@@ -1,7 +1,7 @@
 <template>
   <form class="card auth-card" @submit.prevent="submitHandler">
     <div class="card-content">
-      <span class="card-title">Домашняя бухгалтерия</span>
+      <span class="card-title">{{'Home_budget' | localize}}</span>
       <div class="input-field">
         <input
             id="email"
@@ -15,13 +15,13 @@
           v-if="$v.email.$dirty && !$v.email.required"
           class="helper-text invalid"
         >
-          Email не должен быть пустым
+          {{'Home_emailEmpty' | localize}}
         </small>
         <small
           v-else-if="$v.email.$dirty && !$v.email.email"
           class="helper-text invalid"
         >
-          Введите корректный email
+          {{'Home_correctEmail' | localize}}
         </small>
       </div>
       <div class="input-field">
@@ -32,19 +32,20 @@
             :class="{invalid: ($v.password.$dirty && !$v.password.required)
               || ($v.password.$dirty && !$v.password.minLength)}"
         >
-        <label for="password">Пароль</label>
+        <label for="password">{{'Home_password' | localize}}</label>
         <small
           v-if="$v.password.$dirty && !$v.password.required"
           class="helper-text invalid"
         >
-          Password не должен быть пустым
+          {{'Home_passwordEmpty' | localize}}
         </small>
         <small
           v-else-if="$v.password.$dirty && !$v.password.minLength"
           class="helper-text invalid"
         >
-          Минимальная длинна пароля {{$v.password.$params.minLength.min}} символом.
-          А сейчас {{password.length}}
+          {{'Home_passMinLength' | localize}} {{$v.password.$params.minLength.min}}
+          {{'Home_symbols' | localize}}
+          {{'Home_now' | localize}} {{password.length}}.
         </small>
       </div>
     </div>

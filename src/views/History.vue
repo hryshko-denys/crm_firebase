@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>История записей</h3>
+      <h3>{{'History_historyRecord' | localize}}</h3>
     </div>
 
     <div class="history-chart">
@@ -11,18 +11,21 @@
     <Loader v-if="loading" />
 
     <p class="center" v-else-if="!records.length">
-      Записей пока нет <router-link to="record">Добавить новую запись</router-link>
+      {{'History_emptyRecord' | localize}}
+      <router-link to="record">
+        {{'History_addNewRecord' | localize}}
+      </router-link>
     </p>
 
     <section v-else>
-      <HistoryTalbe :records="items" />
+      <HistoryTable :records="items" />
 
       <Paginate
         v-model="page"
         :page-count="pageCount"
         :click-handler="PageChangeHandler"
-        :prev-text="'Назад'"
-        :next-text="'Вперед'"
+        :prev-text="'History_back' | localize"
+        :next-text="'History_forward' | localize"
         :container-class="'pagination'"
         :page-class="'waves-effect'"
       />
@@ -32,8 +35,9 @@
 
 <script>
 /* eslint-disable */
+import localizeFilter from '@/filters/localize.filter';
 import paginationMixin from '@/mixins/pagination.mixin'
-import HistoryTalbe from '@/components/app/HistoryTalbe.vue';
+import HistoryTable from '@/components/app/HistoryTable.vue';
 import Loader from '@/components/app/Loader.vue';
 import { Pie } from 'vue-chartjs';
 
@@ -42,7 +46,7 @@ export default {
   extends: Pie,
   mixins: [paginationMixin],
   components: {
-    HistoryTalbe,
+    HistoryTable,
     Loader,
   },
   data: () => ({
@@ -64,7 +68,9 @@ export default {
           ...record,
           categoryName: categories.find((c) => c.id === record.categoryId).title,
           typeClass: record.type === 'income' ? 'green' : 'red',
-          typeText: record.type === 'income' ? 'Доход' : 'Расход',
+          typeText: record.type === 'income'
+            ? localizeFilter('Income')
+            : localizeFilter('Outcome')
         };
       }));
 
