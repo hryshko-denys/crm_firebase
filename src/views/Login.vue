@@ -55,14 +55,14 @@
             class="btn waves-effect waves-light auth-submit"
             type="submit"
         >
-          Войти
+          {{'Login_enter' | localize}}
           <i class="material-icons right">send</i>
         </button>
       </div>
 
       <p class="center">
-        Нет аккаунта?
-        <router-link to="/register">Зарегистрироваться</router-link>
+        {{'Login_haveAccount' | localize}}
+        <router-link to="/register">{{'Login_registration' | localize}}</router-link>
       </p>
     </div>
   </form>
@@ -75,6 +75,11 @@ import messages from '@/utils/messages';
 
 export default {
   name: 'login',
+  metaInfo() {
+    return {
+      title: this.$title('Login'),
+    };
+  },
   data: () => ({
     email: '',
     password: '',

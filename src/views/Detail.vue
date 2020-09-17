@@ -41,6 +41,11 @@ import Loader from '@/components/app/Loader.vue';
 
 export default {
   name: 'detail',
+  metaInfo() {
+    return {
+      title: this.$title('Detail_name'),
+    };
+  },
   components: {
     Loader,
   },

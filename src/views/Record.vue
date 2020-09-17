@@ -98,6 +98,11 @@ import { mapGetters } from 'vuex';
 /* eslint-disable */
 export default {
   name: 'record',
+  metaInfo() {
+    return {
+      title: this.$title('Record'),
+    };
+  },
   data: () => ({
     category: null,
     loading: true,

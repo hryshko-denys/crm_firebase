@@ -32,6 +32,11 @@ import HomeCurrency from '@/components/app/HomeCurrency.vue';
 import Loader from '@/components/app/Loader.vue';
 
 export default {
+  metaInfo() {
+    return {
+      title: this.$title('Home'),
+    };
+  },
   data: () => ({
     loading: true,
     currency: null,

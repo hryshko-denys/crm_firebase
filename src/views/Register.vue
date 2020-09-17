@@ -21,7 +21,7 @@
           v-else-if="$v.email.$dirty && !$v.email.email"
           class="helper-text invalid"
         >
-          Введите корректный email
+          {{'Home_correctEmail' | localize}}
         </small>
       </div>
       <div class="input-field">
@@ -32,19 +32,20 @@
             :class="{invalid: ($v.password.$dirty && !$v.password.required)
               || ($v.password.$dirty && !$v.password.minLength)}"
         >
-        <label for="password">Пароль</label>
+        <label for="password">{{'Home_password' | localize}}</label>
         <small
           v-if="$v.password.$dirty && !$v.password.required"
           class="helper-text invalid"
         >
-          Password не должен быть пустым
+          {{'Home_passwordEmpty' | localize}}
         </small>
         <small
           v-else-if="$v.password.$dirty && !$v.password.minLength"
           class="helper-text invalid"
         >
-          Минимальная длинна пароля {{$v.password.$params.minLength.min}} символом.
-          А сейчас {{password.length}}
+          {{'Home_passMinLength' | localize}} {{$v.password.$params.minLength.min}}
+          {{'Home_symbols' | localize}}
+          {{'Home_now' | localize}} {{password.length}}
         </small>
       </div>
       <div class="input-field">
@@ -54,18 +55,18 @@
             v-model.trim="name"
             :class="{ invalid: ($v.name.$dirty && !$v.name.required) }"
         >
-        <label for="name">Имя</label>
+        <label for="name">{{'Categories_name' | localize}}</label>
         <small
           v-if="$v.name.$dirty && !$v.name.required"
           class="helper-text invalid"
         >
-          Введтите свое имя
+          {{'Login_enterName' | localize}}
         </small>
       </div>
       <p>
         <label>
           <input type="checkbox" v-model="agree" />
-          <span>С правилами согласен</span>
+          <span>{{'Login_agreement' | localize}}</span>
         </label>
       </p>
     </div>
@@ -75,14 +76,14 @@
             class="btn waves-effect waves-light auth-submit"
             type="submit"
         >
-          Зарегистрироваться
+          {{'Login_registration' | localize}}
           <i class="material-icons right">send</i>
         </button>
       </div>
 
       <p class="center">
-        Уже есть аккаунт?
-        <router-link to="/login">Войти!</router-link>
+        {{'Login_alreadyHaveAcocunt' | localize}}
+        <router-link to="/login">{{'Login_enter!' | localize}}</router-link>
       </p>
     </div>
   </form>
@@ -94,6 +95,11 @@ import { email, required, minLength } from 'vuelidate/lib/validators';
 
 export default {
   name: 'register',
+  metaInfo() {
+    return {
+      title: this.$title('Registration'),
+    };
+  },
   data: () => ({
     email: '',
     password: '',
